@@ -1,0 +1,28 @@
+{
+  "name": "coin-tool",
+  "version": "1.0.0",
+  "description": "personal crypto currency tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josudoey/coin-tool.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "tool"
+  ],
+  "author": "Joey Fang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josudoey/coin-tool/issues"
+  },
+  "homepage": "https://github.com/josudoey/coin-tool#readme",
+  "dependencies": {
+    "bip39": "^2.3.1",
+    "commander": "^2.11.0",
+    "require-tree": "^1.1.1"
+  }
+}
