@@ -3,25 +3,49 @@ const path = require('path')
 const fs = require('fs')
 const bip39 = require('bip39')
 const bitcoin = require('bitcoinjs-lib')
+const crypto = require('crypto')
 
 module.exports = function (prog) {
   const getNetwork = function () {
     const name = (prog.test) ? 'testnet' : 'bitcoin'
     return bitcoin.networks[name]
   }
+
   prog
     .command('seed [mnemonic]')
     .description('use bip39 mnemonic code to seed code')
     .action(function (mnemonic, opts) {
+      if (!mnemonic) {
+        const rnd = crypto.randomBytes(32).toString('hex')
+        console.log(rnd)
+        return
+      }
       const seed = bip39.mnemonicToSeedHex(mnemonic).toString('hex')
       console.log(seed)
     })
 
   prog
-    .command('seed2key <seed-hex>')
+    .command('mnemonic [seed]')
+    .description('use bip39 mnemonic code to seed code')
+    .action(function (seed, opts) {
+      if (!seed) {
+        const mnemonic = bip39.generateMnemonic()
+        console.log(mnemonic)
+        return
+      }
+      const mnemonic = bip39.entropyToMnemonic(seed)
+      console.log(mnemonic)
+    })
+
+  prog
+    .command('bip32 [mnemonic]')
     .description('use bip32 generate hdnode key')
-    .action(function (hex, opts) {
-      const node = bitcoin.HDNode.fromSeedHex(hex, getNetwork())
+    .action(function (mnemonic, opts) {
+      if (!mnemonic) {
+        mnemonic = bip39.generateMnemonic()
+      }
+      const seed = bip39.mnemonicToSeedHex(mnemonic).toString('hex')
+      const node = bitcoin.HDNode.fromSeedHex(seed, getNetwork())
       console.log(node.toBase58())
     })
 
