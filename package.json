@@ -25,6 +25,6 @@
     "bitcore-lib": "^0.14.0",
     "bitcore-p2p": "^1.1.2",
     "commander": "^2.11.0",
-    "require-tree": "^1.1.1"
+    "globby": "^6.1.0"
   }
 }

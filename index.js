@@ -1,3 +1,4 @@
+const globby = require('globby')
 const prog = require('commander')
 const path = require('path')
 const fs = require('fs')
@@ -15,15 +16,20 @@ try {
 prog
   .version(version)
 
-const tree = requireTree('./cmd', {
-  index: 'preserve'
+const paths = globby.sync('./cmd/**/*.js', {
+  cwd: __dirname,
+  absolute: false,
+  nodir: true
 })
-for (const name in tree) {
-  const mod = tree[name]
+
+for (const name of paths) {
+  const mod = require(name)
   mod(prog)
 }
+
 prog.parse(process.argv)
 
 if (prog.args.length === 0 || !prog.args[prog.args.length - 1]._name) {
   prog.outputHelp()
 }
+
