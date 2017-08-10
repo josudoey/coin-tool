@@ -22,6 +22,8 @@
   "homepage": "https://github.com/josudoey/coin-tool#readme",
   "dependencies": {
     "bip39": "^2.3.1",
+    "bitcore-lib": "^0.14.0",
+    "bitcore-p2p": "^1.1.2",
     "commander": "^2.11.0",
     "require-tree": "^1.1.1"
   }
